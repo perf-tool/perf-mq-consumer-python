@@ -1,0 +1,11 @@
+# file system
+.DS_Store
+
+# ide
+.idea/**
+
+# venv
+venv/**
+
+# pycache
+**/__pycache__
