@@ -23,12 +23,12 @@ import pulsar
 
 pulsar_host = os.environ.get("PULSAR_HOST", "localhost")
 pulsar_port = os.environ.get("PULSAR_PORT", "6650")
-pulsar_tls = os.environ.get("PULSAR_TLS_ENABLE", False)
+pulsar_tls = os.environ.get("PULSAR_TLS_ENABLE", "False")
 pulsar_auth_token = os.environ.get("PULSAR_AUTH_TOKEN", "")
 
 
 def start():
-    if pulsar_tls:
+    if pulsar_tls.lower() != "false":
         url = 'pulsar+ssl://{}:{}'.format(pulsar_host, pulsar_port)
     else:
         url = 'pulsar://{}:{}'.format(pulsar_host, pulsar_port)
