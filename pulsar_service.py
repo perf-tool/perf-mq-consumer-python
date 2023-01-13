@@ -23,10 +23,19 @@ import pulsar
 
 pulsar_host = os.environ.get("PULSAR_HOST", "localhost")
 pulsar_port = os.environ.get("PULSAR_PORT", "6650")
+pulsar_tls = os.environ.get("PULSAR_TLS_ENABLE", False)
+pulsar_auth_token = os.environ.get("PULSAR_AUTH_TOKEN", "")
 
 
 def start():
-    client = pulsar.Client('pulsar://{}:{}'.format(pulsar_host, pulsar_port))
+    if pulsar_tls:
+        url = pulsar.Client('pulsar+ssl://{}:{}'.format(pulsar_host, pulsar_port))
+    else:
+        url = pulsar.Client('pulsar://{}:{}'.format(pulsar_host, pulsar_port))
+    if pulsar_auth_token == "":
+        client = pulsar.Client(service_url=url)
+    else:
+        client = pulsar.Client(service_url=url, authentication=pulsar.AuthenticationToken(pulsar_auth_token))
     consumer = client.subscribe(os.environ.get("PULSAR_TOPIC"), os.environ.get("PULSAR_SUBSCRIPTION_NAME"))
     while True:
         msg = consumer.receive()
