@@ -29,9 +29,9 @@ pulsar_auth_token = os.environ.get("PULSAR_AUTH_TOKEN", "")
 
 def start():
     if pulsar_tls:
-        url = pulsar.Client('pulsar+ssl://{}:{}'.format(pulsar_host, pulsar_port))
+        url = 'pulsar+ssl://{}:{}'.format(pulsar_host, pulsar_port)
     else:
-        url = pulsar.Client('pulsar://{}:{}'.format(pulsar_host, pulsar_port))
+        url = 'pulsar://{}:{}'.format(pulsar_host, pulsar_port)
     if pulsar_auth_token == "":
         client = pulsar.Client(service_url=url)
     else:
