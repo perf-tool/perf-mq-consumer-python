@@ -18,11 +18,7 @@
 #
 
 
-FROM perftool/base:python
-
-RUN apt-get update && \
-    apt-get install -y pip && \
-    apt-get clean all \
+FROM shoothzj/base:python
 
 RUN pip install pulsar-client
 
